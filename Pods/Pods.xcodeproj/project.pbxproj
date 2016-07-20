@@ -1,0 +1,385 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3FB89F3B459C757193DD3DECEC6858AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */; };
+		84A3A32E5EB15953C6318DBB031E9751 /* Pods-sampleapp-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 30EEBFBE53D52881DC7EBD86468A7FA0 /* Pods-sampleapp-dummy.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		03C6BDD3085600CD1167E485D8E6C6B2 /* RTCMediaStream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCMediaStream.h; path = libjingle_peerconnection/Headers/RTCMediaStream.h; sourceTree = "<group>"; };
+		05FB16C876B3B86357DCB98E98984E02 /* libWebRTC.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libWebRTC.a; path = libjingle_peerconnection/libWebRTC.a; sourceTree = "<group>"; };
+		12EBC7980104FF260D9C8FA9EBF3DD41 /* RTCVideoSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCVideoSource.h; path = libjingle_peerconnection/Headers/RTCVideoSource.h; sourceTree = "<group>"; };
+		201D2D2F69E09C9531D3AC4BDD4046A9 /* RTCStatsReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCStatsReport.h; path = libjingle_peerconnection/Headers/RTCStatsReport.h; sourceTree = "<group>"; };
+		202B000D66DC95A0302F120F9C89C296 /* RTCPeerConnectionDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCPeerConnectionDelegate.h; path = libjingle_peerconnection/Headers/RTCPeerConnectionDelegate.h; sourceTree = "<group>"; };
+		2B5F2061E8EE61439F261779F7A4E62A /* RTCPeerConnectionFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCPeerConnectionFactory.h; path = libjingle_peerconnection/Headers/RTCPeerConnectionFactory.h; sourceTree = "<group>"; };
+		308E92F35A3B1A737AB23DD5C42AF5B9 /* RTCVideoRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCVideoRenderer.h; path = libjingle_peerconnection/Headers/RTCVideoRenderer.h; sourceTree = "<group>"; };
+		30D10447D99A694F776B501C3753C10E /* RTCICEServer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCICEServer.h; path = libjingle_peerconnection/Headers/RTCICEServer.h; sourceTree = "<group>"; };
+		30EEBFBE53D52881DC7EBD86468A7FA0 /* Pods-sampleapp-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-sampleapp-dummy.m"; sourceTree = "<group>"; };
+		3C88786BBA8742A3980527AB54130187 /* RTCPair.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCPair.h; path = libjingle_peerconnection/Headers/RTCPair.h; sourceTree = "<group>"; };
+		43DFC2A8F5E11F8657057966D2D3FDCD /* RTCStatsDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCStatsDelegate.h; path = libjingle_peerconnection/Headers/RTCStatsDelegate.h; sourceTree = "<group>"; };
+		46B9BCD94EBC35D561863EE6673E20A2 /* RTCOpenGLVideoRenderer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCOpenGLVideoRenderer.h; path = libjingle_peerconnection/Headers/RTCOpenGLVideoRenderer.h; sourceTree = "<group>"; };
+		47309A664F6092E5331B1F46163644F3 /* libPods-sampleapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-sampleapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4952333DA2BDA58274EC01CFAABEB550 /* RTCI420Frame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCI420Frame.h; path = libjingle_peerconnection/Headers/RTCI420Frame.h; sourceTree = "<group>"; };
+		49C1475A7678396A72897BCACE5066D7 /* RTCMediaStreamTrack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCMediaStreamTrack.h; path = libjingle_peerconnection/Headers/RTCMediaStreamTrack.h; sourceTree = "<group>"; };
+		4D68C92A0A7E4BF2FD9FFEDBE59EBD01 /* RTCAudioTrack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCAudioTrack.h; path = libjingle_peerconnection/Headers/RTCAudioTrack.h; sourceTree = "<group>"; };
+		6993B7278DECFF046FFB4F93085E2167 /* Pods-sampleapp-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-sampleapp-resources.sh"; sourceTree = "<group>"; };
+		6F485753EAF1B3BE128E2229FD0AC120 /* RTCVideoCapturer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCVideoCapturer.h; path = libjingle_peerconnection/Headers/RTCVideoCapturer.h; sourceTree = "<group>"; };
+		6FBE56966A6C15482105E4BB6A321B2F /* RTCMediaSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCMediaSource.h; path = libjingle_peerconnection/Headers/RTCMediaSource.h; sourceTree = "<group>"; };
+		79DF1BD5AB558AB7B6042F61246A0017 /* RTCEAGLVideoView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCEAGLVideoView.h; path = libjingle_peerconnection/Headers/RTCEAGLVideoView.h; sourceTree = "<group>"; };
+		84A93724D69947B681EEFE3F53B5B1C8 /* RTCAVFoundationVideoSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCAVFoundationVideoSource.h; path = libjingle_peerconnection/Headers/RTCAVFoundationVideoSource.h; sourceTree = "<group>"; };
+		87AEEC80C1ACC7DBC2604F75D81C309F /* Pods-sampleapp-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-sampleapp-frameworks.sh"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A486D098453FE8EDF336BE1B0A1F5E8B /* RTCLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCLogging.h; path = libjingle_peerconnection/Headers/RTCLogging.h; sourceTree = "<group>"; };
+		A5008CA0D8C0CD50C02E37FF454D329B /* RTCNSGLVideoView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCNSGLVideoView.h; path = libjingle_peerconnection/Headers/RTCNSGLVideoView.h; sourceTree = "<group>"; };
+		A75F8AC6333A8F8025E5EFF94ACA3D09 /* RTCMediaConstraints.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCMediaConstraints.h; path = libjingle_peerconnection/Headers/RTCMediaConstraints.h; sourceTree = "<group>"; };
+		AA9E330AFC1A74FD339575939A84CA2F /* RTCSessionDescriptionDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCSessionDescriptionDelegate.h; path = libjingle_peerconnection/Headers/RTCSessionDescriptionDelegate.h; sourceTree = "<group>"; };
+		AC617C95090A8EAA1BF3283186696AC4 /* RTCDataChannel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCDataChannel.h; path = libjingle_peerconnection/Headers/RTCDataChannel.h; sourceTree = "<group>"; };
+		AE3C5590D798D3AD3CCB168E8C70369E /* RTCFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCFileLogger.h; path = libjingle_peerconnection/Headers/RTCFileLogger.h; sourceTree = "<group>"; };
+		B3A228D52ECB97DD48D4B7EF4DED1FCA /* RTCAudioSource.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCAudioSource.h; path = libjingle_peerconnection/Headers/RTCAudioSource.h; sourceTree = "<group>"; };
+		B4F609E5DD60EB998439C8CA9ACAA7D0 /* RTCPeerConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCPeerConnection.h; path = libjingle_peerconnection/Headers/RTCPeerConnection.h; sourceTree = "<group>"; };
+		B541467A0BAA98E98902FF57AE38C3C9 /* RTCPeerConnectionInterface.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCPeerConnectionInterface.h; path = libjingle_peerconnection/Headers/RTCPeerConnectionInterface.h; sourceTree = "<group>"; };
+		B7A9CDE80B73D1DF5284C44D0E6D7C94 /* RTCVideoTrack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCVideoTrack.h; path = libjingle_peerconnection/Headers/RTCVideoTrack.h; sourceTree = "<group>"; };
+		BD53FF1C44EA643EBE80B42DF9E1A39A /* RTCSessionDescription.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCSessionDescription.h; path = libjingle_peerconnection/Headers/RTCSessionDescription.h; sourceTree = "<group>"; };
+		CB0BF5B792D07BC502D201EAD01DE44B /* Pods-sampleapp-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-sampleapp-acknowledgements.markdown"; sourceTree = "<group>"; };
+		CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		D5E30568199508A90A184A32D87514C8 /* Pods-sampleapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-sampleapp.debug.xcconfig"; sourceTree = "<group>"; };
+		D9DC6C2C09161C7848E2BBE17F0D2AB1 /* Pods-sampleapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-sampleapp.release.xcconfig"; sourceTree = "<group>"; };
+		DB0E86A6801A5FC0343526BBC5A2A0AD /* RTCTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCTypes.h; path = libjingle_peerconnection/Headers/RTCTypes.h; sourceTree = "<group>"; };
+		E32E3A27079FA7B6936FAE807AFED25E /* RTCICECandidate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RTCICECandidate.h; path = libjingle_peerconnection/Headers/RTCICECandidate.h; sourceTree = "<group>"; };
+		F8D8D2703056D4EBE5BA0AE3A9A407F4 /* Pods-sampleapp-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-sampleapp-acknowledgements.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		12BBF93295B317D761153386D41080F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3FB89F3B459C757193DD3DECEC6858AC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CEC22C73C1608DFA5D5D78BDCB218219 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		67A3B1EF6893D546E54B9E91188823AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				05FB16C876B3B86357DCB98E98984E02 /* libWebRTC.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				C07A77CF2F26F0139AB856377049A706 /* Pods */,
+				B6810EF081A7AC7F0294B01BB1C860A9 /* Products */,
+				F527E3BE164A456E2DC7442C4AF619B2 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		B6810EF081A7AC7F0294B01BB1C860A9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				47309A664F6092E5331B1F46163644F3 /* libPods-sampleapp.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B720E03EF0F076BBD39C5185D86494E8 /* Pods-sampleapp */ = {
+			isa = PBXGroup;
+			children = (
+				CB0BF5B792D07BC502D201EAD01DE44B /* Pods-sampleapp-acknowledgements.markdown */,
+				F8D8D2703056D4EBE5BA0AE3A9A407F4 /* Pods-sampleapp-acknowledgements.plist */,
+				30EEBFBE53D52881DC7EBD86468A7FA0 /* Pods-sampleapp-dummy.m */,
+				87AEEC80C1ACC7DBC2604F75D81C309F /* Pods-sampleapp-frameworks.sh */,
+				6993B7278DECFF046FFB4F93085E2167 /* Pods-sampleapp-resources.sh */,
+				D5E30568199508A90A184A32D87514C8 /* Pods-sampleapp.debug.xcconfig */,
+				D9DC6C2C09161C7848E2BBE17F0D2AB1 /* Pods-sampleapp.release.xcconfig */,
+			);
+			name = "Pods-sampleapp";
+			path = "Target Support Files/Pods-sampleapp";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3DCAB2B7CDE207B3958B6CB957FCC758 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C07A77CF2F26F0139AB856377049A706 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F5A2C8129DB73BCFAE614FFB9AF9C45B /* libjingle_peerconnection */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F527E3BE164A456E2DC7442C4AF619B2 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				B720E03EF0F076BBD39C5185D86494E8 /* Pods-sampleapp */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		F5A2C8129DB73BCFAE614FFB9AF9C45B /* libjingle_peerconnection */ = {
+			isa = PBXGroup;
+			children = (
+				B3A228D52ECB97DD48D4B7EF4DED1FCA /* RTCAudioSource.h */,
+				4D68C92A0A7E4BF2FD9FFEDBE59EBD01 /* RTCAudioTrack.h */,
+				84A93724D69947B681EEFE3F53B5B1C8 /* RTCAVFoundationVideoSource.h */,
+				AC617C95090A8EAA1BF3283186696AC4 /* RTCDataChannel.h */,
+				79DF1BD5AB558AB7B6042F61246A0017 /* RTCEAGLVideoView.h */,
+				AE3C5590D798D3AD3CCB168E8C70369E /* RTCFileLogger.h */,
+				4952333DA2BDA58274EC01CFAABEB550 /* RTCI420Frame.h */,
+				E32E3A27079FA7B6936FAE807AFED25E /* RTCICECandidate.h */,
+				30D10447D99A694F776B501C3753C10E /* RTCICEServer.h */,
+				A486D098453FE8EDF336BE1B0A1F5E8B /* RTCLogging.h */,
+				A75F8AC6333A8F8025E5EFF94ACA3D09 /* RTCMediaConstraints.h */,
+				6FBE56966A6C15482105E4BB6A321B2F /* RTCMediaSource.h */,
+				03C6BDD3085600CD1167E485D8E6C6B2 /* RTCMediaStream.h */,
+				49C1475A7678396A72897BCACE5066D7 /* RTCMediaStreamTrack.h */,
+				A5008CA0D8C0CD50C02E37FF454D329B /* RTCNSGLVideoView.h */,
+				46B9BCD94EBC35D561863EE6673E20A2 /* RTCOpenGLVideoRenderer.h */,
+				3C88786BBA8742A3980527AB54130187 /* RTCPair.h */,
+				B4F609E5DD60EB998439C8CA9ACAA7D0 /* RTCPeerConnection.h */,
+				202B000D66DC95A0302F120F9C89C296 /* RTCPeerConnectionDelegate.h */,
+				2B5F2061E8EE61439F261779F7A4E62A /* RTCPeerConnectionFactory.h */,
+				B541467A0BAA98E98902FF57AE38C3C9 /* RTCPeerConnectionInterface.h */,
+				BD53FF1C44EA643EBE80B42DF9E1A39A /* RTCSessionDescription.h */,
+				AA9E330AFC1A74FD339575939A84CA2F /* RTCSessionDescriptionDelegate.h */,
+				43DFC2A8F5E11F8657057966D2D3FDCD /* RTCStatsDelegate.h */,
+				201D2D2F69E09C9531D3AC4BDD4046A9 /* RTCStatsReport.h */,
+				DB0E86A6801A5FC0343526BBC5A2A0AD /* RTCTypes.h */,
+				6F485753EAF1B3BE128E2229FD0AC120 /* RTCVideoCapturer.h */,
+				308E92F35A3B1A737AB23DD5C42AF5B9 /* RTCVideoRenderer.h */,
+				12EBC7980104FF260D9C8FA9EBF3DD41 /* RTCVideoSource.h */,
+				B7A9CDE80B73D1DF5284C44D0E6D7C94 /* RTCVideoTrack.h */,
+				67A3B1EF6893D546E54B9E91188823AE /* Frameworks */,
+			);
+			path = libjingle_peerconnection;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		88B4F4010A5E8D26F65D5337C39DB93F /* Pods-sampleapp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B985D4C3EE6055AAD8C12E1A9D5AC65F /* Build configuration list for PBXNativeTarget "Pods-sampleapp" */;
+			buildPhases = (
+				C530F4A1D0253BA38267BA2EFB0DF0B4 /* Sources */,
+				12BBF93295B317D761153386D41080F8 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-sampleapp";
+			productName = "Pods-sampleapp";
+			productReference = 47309A664F6092E5331B1F46163644F3 /* libPods-sampleapp.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = B6810EF081A7AC7F0294B01BB1C860A9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				88B4F4010A5E8D26F65D5337C39DB93F /* Pods-sampleapp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C530F4A1D0253BA38267BA2EFB0DF0B4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84A3A32E5EB15953C6318DBB031E9751 /* Pods-sampleapp-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		3FA451D268613890FA8A5A03801E11D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5E36E68DAA40BDFC88EADF797763CC55 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5E30568199508A90A184A32D87514C8 /* Pods-sampleapp.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		5E62115DE8C09934BF8D2FE5D15FED1E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				ONLY_ACTIVE_ARCH = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		D2BCC188C2089C05EEE1FD5E57E39BA0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9DC6C2C09161C7848E2BBE17F0D2AB1 /* Pods-sampleapp.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E62115DE8C09934BF8D2FE5D15FED1E /* Debug */,
+				3FA451D268613890FA8A5A03801E11D5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B985D4C3EE6055AAD8C12E1A9D5AC65F /* Build configuration list for PBXNativeTarget "Pods-sampleapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E36E68DAA40BDFC88EADF797763CC55 /* Debug */,
+				D2BCC188C2089C05EEE1FD5E57E39BA0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}
