@@ -14,6 +14,8 @@
 		908853BF1D3FAFF700235B03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908853BD1D3FAFF700235B03 /* Main.storyboard */; };
 		908853C11D3FAFF700235B03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 908853C01D3FAFF700235B03 /* Assets.xcassets */; };
 		908853C41D3FAFF700235B03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 908853C21D3FAFF700235B03 /* LaunchScreen.storyboard */; };
+		90C6915C1D40AE3F00C758CE /* RTCICECandidate+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6915B1D40AE3F00C758CE /* RTCICECandidate+JSON.m */; };
+		90C6915F1D40B10600C758CE /* RTCSessionDescription+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6915E1D40B10600C758CE /* RTCSessionDescription+JSON.m */; };
 		90DE52EF1D3FBCDF00B71981 /* SIOSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DE52ED1D3FBCDF00B71981 /* SIOSocket.m */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,10 @@
 		908853C01D3FAFF700235B03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		908853C31D3FAFF700235B03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		908853C51D3FAFF700235B03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		90C6915A1D40AE3F00C758CE /* RTCICECandidate+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RTCICECandidate+JSON.h"; sourceTree = "<group>"; };
+		90C6915B1D40AE3F00C758CE /* RTCICECandidate+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RTCICECandidate+JSON.m"; sourceTree = "<group>"; };
+		90C6915D1D40B10600C758CE /* RTCSessionDescription+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RTCSessionDescription+JSON.h"; sourceTree = "<group>"; };
+		90C6915E1D40B10600C758CE /* RTCSessionDescription+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RTCSessionDescription+JSON.m"; sourceTree = "<group>"; };
 		90DE52EC1D3FBCDF00B71981 /* SIOSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SIOSocket.h; sourceTree = "<group>"; };
 		90DE52ED1D3FBCDF00B71981 /* SIOSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIOSocket.m; sourceTree = "<group>"; };
 		90DE52EE1D3FBCDF00B71981 /* socket.io.js.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socket.io.js.h; sourceTree = "<group>"; };
@@ -82,6 +88,10 @@
 				908853B71D3FAFF700235B03 /* AppDelegate.h */,
 				908853B81D3FAFF700235B03 /* AppDelegate.m */,
 				908853BA1D3FAFF700235B03 /* ViewController.h */,
+				90C6915A1D40AE3F00C758CE /* RTCICECandidate+JSON.h */,
+				90C6915B1D40AE3F00C758CE /* RTCICECandidate+JSON.m */,
+				90C6915D1D40B10600C758CE /* RTCSessionDescription+JSON.h */,
+				90C6915E1D40B10600C758CE /* RTCSessionDescription+JSON.m */,
 				908853BB1D3FAFF700235B03 /* ViewController.m */,
 				908853BD1D3FAFF700235B03 /* Main.storyboard */,
 				908853C01D3FAFF700235B03 /* Assets.xcassets */,
@@ -242,6 +252,8 @@
 				908853BC1D3FAFF700235B03 /* ViewController.m in Sources */,
 				908853B91D3FAFF700235B03 /* AppDelegate.m in Sources */,
 				90DE52EF1D3FBCDF00B71981 /* SIOSocket.m in Sources */,
+				90C6915F1D40B10600C758CE /* RTCSessionDescription+JSON.m in Sources */,
+				90C6915C1D40AE3F00C758CE /* RTCICECandidate+JSON.m in Sources */,
 				908853B61D3FAFF700235B03 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
