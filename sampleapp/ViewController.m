@@ -111,12 +111,15 @@
           }];
 
          
-         [self.socketSIO emit: @"create or join" args: @[
+         [self.socketSIO emit: @"createroom" args: @[
                                                          @"testroom1"
                                                          ]];
-         [self.socketSIO emit: @"presence" args: @[
-                                                         @"presence"
-                                                         ]];
+//         [self.socketSIO emit: @"create or join" args: @[
+//                                                         @"testroom1"
+//                                                         ]];
+//         [self.socketSIO emit: @"presence" args: @[
+//                                                         @"presence"
+//                                                         ]];
      }];
 
 }
@@ -197,6 +200,29 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 //[self.delegate onOpen:self];
             });
+            
+            NSError *error;
+            int tempInt = 345;
+            NSDictionary *messageDict = @{@"message": [NSString stringWithFormat:@"%d",tempInt]};
+            NSData *messageData = [NSJSONSerialization dataWithJSONObject:messageDict options:0 error:&error];
+            if (!error)
+            {
+                RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:messageData isBinary:NO];
+                //RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:imagedata isBinary:NO];
+                if ([_dataChannel sendData:data])
+                {
+                    //successHandler();
+                    int a = 0;
+                }
+                else
+                {
+                    //errorHandler(@"Message failed to send");
+                }
+            }
+            else
+            {
+                //errorHandler(@"Unable to encode message to JSON");
+            }
         }
             break;
             
