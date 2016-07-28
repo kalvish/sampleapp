@@ -28,6 +28,9 @@
 @property(nonatomic, strong) RTCPeerConnection *peerConnection;
 @property SIOSocket *socketSIO;
 
+@property NSString *roomJoined;
+@property NSString *userClientId;
+
 @end
 
 @implementation ViewController
@@ -37,6 +40,8 @@
 @synthesize isInitiator = _isInitiator;
 @synthesize peerConnection = _peerConnection;
 
+@synthesize roomJoined;
+@synthesize userClientId;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -61,6 +66,53 @@
               _isInitiator = false;
           }];
          
+         [self.socketSIO on: @"commpac client created peer connection" callback: ^(SIOParameterArray *args)
+          {
+              int a = 0;
+              NSLog(@"commpac client created peer connection");
+              
+              _isInitiator = true;
+              [self createPeerConnection];
+          }];
+         
+         [self.socketSIO on: @"commpac room created" callback: ^(SIOParameterArray *args)
+          {
+              NSDictionary *temp = [args firstObject];
+              NSString *room = temp[@"room"];
+              if(room){
+                  self.roomJoined = room;
+              }
+              NSString *clientid = temp[@"clientid"];
+              if(clientid){
+                  self.userClientId = clientid;
+              }
+              NSLog(@"room created %@, %@",room,clientid);
+              _isInitiator = true;
+              //[self createPeerConnection];
+              
+              [self.socketSIO emit: @"commpac server create peer connection" args: @[@{@"room":room, @"clientid":clientid}]];
+
+
+          }];
+         
+         [self.socketSIO on: @"commpac room joined" callback: ^(SIOParameterArray *args)
+          {
+              NSDictionary *temp = [args firstObject];
+              NSString *room = temp[@"room"];
+              if(room){
+                  self.roomJoined = room;
+              }
+              NSString *clientid = temp[@"clientid"];
+              if(clientid){
+                  self.userClientId = clientid;
+              }
+              NSLog(@"room created %@, %@",room,clientid);
+              //is initiator set to true for server based star topology conferencing
+              _isInitiator = true;
+              
+              [self.socketSIO emit: @"commpac server create peer connection" args: @[@{@"room":room, @"clientid":clientid}]];
+          }];
+         
          [self.socketSIO on: @"presence" callback: ^(SIOParameterArray *args)
           {
               NSLog(@"room presence");
@@ -73,47 +125,60 @@
               [self createPeerConnection];
           }];
          
-         [self.socketSIO on: @"message" callback: ^(SIOParameterArray *args)
+         
+         //[self.socketSIO on: @"message" callback: ^(SIOParameterArray *args)
+         [self.socketSIO on: @"commpac client message" callback: ^(SIOParameterArray *args)
           {
               NSDictionary *temp = [args firstObject];
-              NSString *type = temp[@"type"];
-              if(type){
-                  if([type isEqualToString:@"offer"]){
-                      RTCSessionDescription *description =
-                      [RTCSessionDescription descriptionFromJSONDictionary:temp];
-                      if(_peerConnection){
-                          [_peerConnection setRemoteDescriptionWithDelegate:self
-                                                         sessionDescription:description];
-                      }
-                  }else if ([type isEqualToString:@"answer"]){
-                      RTCSessionDescription *description =
-                      [RTCSessionDescription descriptionFromJSONDictionary:temp];
-                      if(_peerConnection){
-                          [_peerConnection setRemoteDescriptionWithDelegate:self
-                                                         sessionDescription:description];
-                          
+              NSString *roomRx = temp[@"room"];
+              NSString *clientidRx = temp[@"clientid"];
+              if([roomRx isEqualToString:self.roomJoined] && [clientidRx isEqualToString:self.userClientId]){
+                  NSDictionary *contentDict = temp[@"content"];
+                  NSString *type = contentDict[@"type"];
+                  if(type){
+                      if([type isEqualToString:@"offer"]){
+                          RTCSessionDescription *description =
+                          [RTCSessionDescription descriptionFromJSONDictionary:contentDict];
+                          if(_peerConnection){
+                              [_peerConnection setRemoteDescriptionWithDelegate:self
+                                                             sessionDescription:description];
+                          }
+                      }else if ([type isEqualToString:@"answer"]){
+                          RTCSessionDescription *description =
+                          [RTCSessionDescription descriptionFromJSONDictionary:contentDict];
+                          if(_peerConnection){
+                              [_peerConnection setRemoteDescriptionWithDelegate:self
+                                                             sessionDescription:description];
+                              
+                          }
                       }
                   }
-              }
-              NSDictionary *candidateDict = temp[@"candidate"];
-              if(candidateDict){
-                    RTCICECandidate *candidate =
+                  NSDictionary *candidateDict = contentDict[@"candidate"];
+                  if(candidateDict){
+                      RTCICECandidate *candidate =
                       [RTCICECandidate candidateFromJSONDictionary:candidateDict];
-                  if(_peerConnection){
-                      [_peerConnection addICECandidate:candidate];
+                      if(_peerConnection){
+                          [_peerConnection addICECandidate:candidate];
+                      }
+                      
+                      
                   }
                   
-                  
+                  NSLog(@"room message");
               }
-             
-              NSLog(@"room message");
+            
               
           }];
 
          
-         [self.socketSIO emit: @"createroom" args: @[
-                                                         @"testroom1"
-                                                         ]];
+//         [self.socketSIO emit: @"createroom" args: @[
+//                                                         @"testroom1"
+//                                                         ]];
+//         
+         [self.socketSIO emit: @"commpac server room create or join" args: @[
+                                                     @"testroom1"
+                                                     ]];
+         
 //         [self.socketSIO emit: @"create or join" args: @[
 //                                                         @"testroom1"
 //                                                         ]];
@@ -136,13 +201,16 @@
     _peerConnection = [_factory peerConnectionWithICEServers:nil /*_iceServers*/
                                                  constraints:constraints
                                                     delegate:self];
+    //_peerConnection = [_factory peerConnectionWithConfiguration:nil constraints:nil delegate:self ];
 
     
     if (_isInitiator) {
         
         //Create data channel
         RTCDataChannelInit *initData = [[RTCDataChannelInit alloc] init];
-        _dataChannel = [_peerConnection createDataChannelWithLabel:@"BoardPACDataChannel" config:initData];
+        NSString *channelName = [NSString stringWithFormat:@"%@%@%@", self.roomJoined, @"commpac", self.userClientId];
+        _dataChannel = [_peerConnection createDataChannelWithLabel:channelName config:initData];
+        //_dataChannel = [_peerConnection createDataChannelWithLabel:@"BoardPACDataChannel" config:initData];
         _dataChannel.delegate = self;
         
         [_peerConnection createOfferWithDelegate:self
@@ -251,28 +319,28 @@ didReceiveMessageWithBuffer:(RTCDataBuffer*)buffer {
     NSString *myString = [[NSString alloc] initWithData:temp encoding:NSUTF8StringEncoding];
     NSLog(@"%@", myString);
     
-    NSError *error;
-    int tempInt = 345;
-    NSDictionary *messageDict = @{@"message": [NSString stringWithFormat:@"%d",tempInt]};
-    NSData *messageData = [NSJSONSerialization dataWithJSONObject:messageDict options:0 error:&error];
-    if (!error)
-    {
-        RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:messageData isBinary:NO];
-        //RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:imagedata isBinary:NO];
-        if ([_dataChannel sendData:data])
-        {
-            //successHandler();
-            int a = 0;
-        }
-        else
-        {
-            //errorHandler(@"Message failed to send");
-        }
-    }
-    else
-    {
-        //errorHandler(@"Unable to encode message to JSON");
-    }
+//    NSError *error;
+//    int tempInt = 345;
+//    NSDictionary *messageDict = @{@"message": [NSString stringWithFormat:@"%d",tempInt]};
+//    NSData *messageData = [NSJSONSerialization dataWithJSONObject:messageDict options:0 error:&error];
+//    if (!error)
+//    {
+//        RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:messageData isBinary:NO];
+//        //RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:imagedata isBinary:NO];
+//        if ([_dataChannel sendData:data])
+//        {
+//            //successHandler();
+//            int a = 0;
+//        }
+//        else
+//        {
+//            //errorHandler(@"Message failed to send");
+//        }
+//    }
+//    else
+//    {
+//        //errorHandler(@"Unable to encode message to JSON");
+//    }
 }
 
 #pragma mark Data Channel methods
@@ -322,11 +390,9 @@ didReceiveMessageWithBuffer:(RTCDataBuffer*)buffer {
        gotICECandidate:(RTCICECandidate *)candidate {
     RTCICECandidate *tempCandidate = candidate;
     NSDictionary *tempString = [tempCandidate getJSONDataCandidate];
-    [self.socketSIO emit: @"message" args: @[tempString]];
-    //[self.socketSIO emit: @"message" args: @[@"gotICECandidate"]];
-    //[self.socketSIO emit: @"message" args: @[
-         //                                           @"testroom1"
-         //                                           ]];
+    //[self.socketSIO emit: @"message" args: @[tempString]];
+    
+    [self.socketSIO emit: @"commpac server message" args: @[@{@"room":self.roomJoined , @"clientid":self.userClientId , @"content": tempString , @"from": @"client"}]];
 }
 
 // New data channel has been opened.
@@ -373,15 +439,11 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp
                                       sessionDescription:sdp];
         RTCSessionDescription *description = sdp;
         NSDictionary *data = [description getJSONDataSDP];
-       // NSString *tempString = [description description];
-        [self.socketSIO emit: @"message" args: @[data]];
-        //[self.socketSIO emit: @"message" args: @[@"didCreateSessionDescription"]];
-        //[self.socketSIO emit: @"message" args: @[
-        //                                         @"testroom1"
-         //                                        ]];
-//        ARDSessionDescriptionMessage *message =
-//        [[ARDSessionDescriptionMessage alloc] initWithDescription:sdp];
-//        [self sendSignalingMessage:message];
+
+        //[self.socketSIO emit: @"message" args: @[data]];
+        //var messageToSend = {room:myRoom,clientid:myCliendId,content:message,from:'client'};
+        [self.socketSIO emit: @"commpac server message" args: @[@{@"room":self.roomJoined , @"clientid":self.userClientId , @"content": data , @"from": @"client"}]];
+
         
     });
 }
@@ -405,6 +467,7 @@ didSetSessionDescriptionWithError:(NSError *)error {
         }
         // If we're answering and we've just set the remote offer we need to create
         // an answer and set the local description.
+
         if (!_isInitiator && !_peerConnection.localDescription) {
             RTCMediaConstraints *constraints = [self defaultAnswerConstraints];
             [_peerConnection createAnswerWithDelegate:self
