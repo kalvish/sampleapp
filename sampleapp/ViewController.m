@@ -20,8 +20,6 @@
 #import "RTCSessionDescription+JSON.h"
 #import "RTCSessionDescriptionDelegate.h"
 
-#import "APBase64Converter.h"
-
 @interface ViewController () <RTCPeerConnectionDelegate,RTCDataChannelDelegate,RTCSessionDescriptionDelegate>
 
 @property(nonatomic, strong) RTCDataChannel *dataChannel;
@@ -36,6 +34,8 @@
 @property(nonatomic, assign) BOOL isCommpacClientCreatedPeerConnection;
 @property(nonatomic, assign) BOOL isCommpacRoomCreatedOrJoined;
 
+
+@property(nonatomic, assign) BOOL isPresenter;
 
 @property NSMutableData *rxData;
 @end
@@ -348,31 +348,47 @@ didReceiveMessageWithBuffer:(RTCDataBuffer*)buffer {
 //    NSString *myString = [[NSString alloc] initWithData:temp encoding:NSUTF8StringEncoding];
 //    NSLog(@"%@", myString);
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSData *temp = buffer.data;
-        
-        NSString* str = [[NSString alloc] initWithData:temp
-                                              encoding:NSUTF8StringEncoding];
-        
-        if (str && [str length] > 0){
-            NSLog(@"Contains string");
+    if(!_isPresenter){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSData *temp = buffer.data;
             
-            NSError *error;
-            id jsonResult = [NSJSONSerialization JSONObjectWithData:temp options:0 error:&error];
-            if (jsonResult && ([jsonResult isKindOfClass:[NSDictionary class]]))
-            {
-                NSDictionary *dict = (NSDictionary*)jsonResult;
-                NSString *messageText = [dict objectForKey:@"message"];
+            NSString* str = [[NSString alloc] initWithData:temp
+                                                  encoding:NSUTF8StringEncoding];
+            
+            if (str && [str length] > 0){
+                NSLog(@"Contains string");
                 
-                if (messageText)
+                NSError *error;
+                id jsonResult = [NSJSONSerialization JSONObjectWithData:temp options:0 error:&error];
+                if (jsonResult && ([jsonResult isKindOfClass:[NSDictionary class]]))
                 {
-                    intMediaLength = [messageText intValue];
-                    rxData = nil;
-                    rxDataCount = 0;
-                    NSLog(@"Direct Message received: [%@], int value is %d", messageText, intMediaLength);
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        //[self.delegate onMessage:messageText sender:self];
-                    });
+                    NSDictionary *dict = (NSDictionary*)jsonResult;
+                    NSString *messageText = [dict objectForKey:@"message"];
+                    
+                    if (messageText)
+                    {
+                        intMediaLength = [messageText intValue];
+                        rxData = nil;
+                        rxDataCount = 0;
+                        NSLog(@"Direct Message received: [%@], int value is %d", messageText, intMediaLength);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            //[self.delegate onMessage:messageText sender:self];
+                        });
+                    }
+                }else{
+                    NSLog(@"Does't contains string");
+                    
+                    //                if(rxData==nil){
+                    //                    rxData = [[NSMutableData alloc] init];
+                    //                }
+                    //                NSData *tempChunk = buffer.data;
+                    //                [rxData appendData:tempChunk];
+                    //                rxDataCount+=tempChunk.length;
+                    //
+                    //                if(rxDataCount==intMediaLength){
+                    //                    UIImage *imageRx= [UIImage imageWithData:rxData];
+                    //                    [imageReceived setImage:imageRx];
+                    //                }
                 }
             }else{
                 NSLog(@"Does't contains string");
@@ -380,32 +396,18 @@ didReceiveMessageWithBuffer:(RTCDataBuffer*)buffer {
                 if(rxData==nil){
                     rxData = [[NSMutableData alloc] init];
                 }
-                NSData *tempChunk = buffer.data;
-                [rxData appendData:tempChunk];
-                rxDataCount+=tempChunk.length;
+                
+                [rxData appendData:temp];
+                rxDataCount+=temp.length;
                 
                 if(rxDataCount==intMediaLength){
                     UIImage *imageRx= [UIImage imageWithData:rxData];
                     [imageReceived setImage:imageRx];
                 }
             }
-        }else{
-            NSLog(@"Does't contains string");
             
-            if(rxData==nil){
-                rxData = [[NSMutableData alloc] init];
-            }
-            
-            [rxData appendData:temp];
-            rxDataCount+=temp.length;
-            
-            if(rxDataCount==intMediaLength){
-                UIImage *imageRx= [UIImage imageWithData:rxData];
-                [imageReceived setImage:imageRx];
-            }
-        }
-        
-    });
+        });
+    }
 
     
 //    NSError *error;
@@ -577,6 +579,7 @@ didSetSessionDescriptionWithError:(NSError *)error {
 }
 
 -(void)onSendMessageToPeer:(id)sender {
+    _isPresenter = true;
     // start the loop
     [self incrementCounter:[NSNumber numberWithInt:0]];
 }
@@ -604,7 +607,7 @@ didSetSessionDescriptionWithError:(NSError *)error {
     if ([self isActive])
     {
         //NSData *imagedata = UIImagePNGRepresentation(imageToSend);
-        NSData *imagedata = UIImageJPEGRepresentation(imageToSend, 0.8f);
+        NSData *imagedata = UIImageJPEGRepresentation(imageToSend, 0.6f);
         NSUInteger imageDataLength = [imagedata length];
         //-----------
         
@@ -647,12 +650,7 @@ didSetSessionDescriptionWithError:(NSError *)error {
                                                  length:thisChunkSize
                                            freeWhenDone:NO];
             NSLog(@"chunk length : %lu",(unsigned long)chunk.length);
-            //http://stackoverflow.com/questions/9977269/how-to-pass-nsdata-as-nsstring-and-get-it-back
-            //http://www.albertopasca.it/whiletrue/2012/04/objective-c-share-classes-objects-apps/
-            //encode to base64
-//            NSString *d =
-//            [NSString stringWithFormat:@"appdue://obj=%@",
-//             [APBase64Converter base64forData:data]];
+          
             RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:[NSData dataWithData:chunk] isBinary:YES];
             if ([_dataChannel sendData:data])
             {

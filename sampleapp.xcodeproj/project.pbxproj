@@ -18,7 +18,6 @@
 		90C6915F1D40B10600C758CE /* RTCSessionDescription+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C6915E1D40B10600C758CE /* RTCSessionDescription+JSON.m */; };
 		90DE52EF1D3FBCDF00B71981 /* SIOSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DE52ED1D3FBCDF00B71981 /* SIOSocket.m */; };
 		90F19CFB1D4B73FF004D681C /* test.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 90F19CFA1D4B73FE004D681C /* test.PNG */; };
-		90F19CFE1D4B87DB004D681C /* libAPBase64Converter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 90F19CFD1D4B87DB004D681C /* libAPBase64Converter.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,8 +41,6 @@
 		90DE52ED1D3FBCDF00B71981 /* SIOSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SIOSocket.m; sourceTree = "<group>"; };
 		90DE52EE1D3FBCDF00B71981 /* socket.io.js.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = socket.io.js.h; sourceTree = "<group>"; };
 		90F19CFA1D4B73FE004D681C /* test.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.PNG; sourceTree = "<group>"; };
-		90F19CFC1D4B87DB004D681C /* APBase64Converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APBase64Converter.h; path = ../APBase64Converter.h; sourceTree = "<group>"; };
-		90F19CFD1D4B87DB004D681C /* libAPBase64Converter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAPBase64Converter.a; sourceTree = "<group>"; };
 		C57613D7FECCC6E15B91AD32 /* Pods-sampleapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sampleapp.release.xcconfig"; path = "Pods/Target Support Files/Pods-sampleapp/Pods-sampleapp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,7 +49,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90F19CFE1D4B87DB004D681C /* libAPBase64Converter.a in Frameworks */,
 				51AE3C7CD1E39D537F1AE2D2 /* libPods-sampleapp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -91,7 +87,6 @@
 		908853B31D3FAFF700235B03 /* sampleapp */ = {
 			isa = PBXGroup;
 			children = (
-				90F19CFC1D4B87DB004D681C /* APBase64Converter.h */,
 				90F19CFA1D4B73FE004D681C /* test.PNG */,
 				908853B71D3FAFF700235B03 /* AppDelegate.h */,
 				908853B81D3FAFF700235B03 /* AppDelegate.m */,
@@ -131,7 +126,6 @@
 		98A2BEAC9D7FD03506F6E0DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				90F19CFD1D4B87DB004D681C /* libAPBase64Converter.a */,
 				5E962CFC42B90627E39CF33A /* libPods-sampleapp.a */,
 			);
 			name = Frameworks;
