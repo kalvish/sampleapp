@@ -34,9 +34,15 @@
 @property(nonatomic, assign) BOOL isCommpacClientCreatedPeerConnection;
 @property(nonatomic, assign) BOOL isCommpacRoomCreatedOrJoined;
 
+
+@property NSMutableData *rxData;
 @end
 
 @implementation ViewController
+
+@synthesize rxData;
+int rxDataCount = 0;
+int intMediaLength = 0;
 
 @synthesize dataChannel = _dataChannel;
 @synthesize factory = _factory;
@@ -337,6 +343,34 @@ didReceiveMessageWithBuffer:(RTCDataBuffer*)buffer {
     NSData *temp = buffer.data;
     NSString *myString = [[NSString alloc] initWithData:temp encoding:NSUTF8StringEncoding];
     NSLog(@"%@", myString);
+    
+//    NSData *temp = buffer.data;
+//    
+//    NSString* str = [[NSString alloc] initWithData:temp
+//                                          encoding:NSUTF8StringEncoding];
+//    
+//    if (str && [str length] > 0){
+//        NSLog(@"Contains string");
+//        
+//        NSError *error;
+//        id jsonResult = [NSJSONSerialization JSONObjectWithData:temp options:0 error:&error];
+//        if (jsonResult && ([jsonResult isKindOfClass:[NSDictionary class]]))
+//        {
+//            NSDictionary *dict = (NSDictionary*)jsonResult;
+//            NSString *messageText = [dict objectForKey:@"message"];
+//            
+//            if (messageText)
+//            {
+//                intMediaLength = [messageText intValue];
+//                rxData = nil;
+//                rxDataCount = 0;
+//                NSLog(@"Direct Message received: [%@], int value is %d", messageText, intMediaLength);
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    //[self.delegate onMessage:messageText sender:self];
+//                });
+//            }
+//        }
+//    }
     
 //    NSError *error;
 //    int tempInt = 345;
