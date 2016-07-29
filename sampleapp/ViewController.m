@@ -20,6 +20,8 @@
 #import "RTCSessionDescription+JSON.h"
 #import "RTCSessionDescriptionDelegate.h"
 
+#import "APBase64Converter.h"
+
 @interface ViewController () <RTCPeerConnectionDelegate,RTCDataChannelDelegate,RTCSessionDescriptionDelegate>
 
 @property(nonatomic, strong) RTCDataChannel *dataChannel;
@@ -39,6 +41,8 @@
 @end
 
 @implementation ViewController
+
+@synthesize imageReceived;
 
 @synthesize rxData;
 int rxDataCount = 0;
@@ -200,9 +204,9 @@ int intMediaLength = 0;
 //                                                         @"testroom1"
 //                                                         ]];
 //         
-         [self.socketSIO emit: @"commpac server room create or join" args: @[
-                                                     @"testroom1"
-                                                     ]];
+//         [self.socketSIO emit: @"commpac server room create or join" args: @[
+//                                                     @"testroom1"
+//                                                     ]];
          
 //         [self.socketSIO emit: @"create or join" args: @[
 //                                                         @"testroom1"
@@ -294,28 +298,28 @@ int intMediaLength = 0;
                 //[self.delegate onOpen:self];
             });
             
-            NSError *error;
-            int tempInt = 345;
-            NSDictionary *messageDict = @{@"message": [NSString stringWithFormat:@"%d",tempInt]};
-            NSData *messageData = [NSJSONSerialization dataWithJSONObject:messageDict options:0 error:&error];
-            if (!error)
-            {
-                RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:messageData isBinary:NO];
-                //RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:imagedata isBinary:NO];
-                if ([_dataChannel sendData:data])
-                {
-                    //successHandler();
-                    int a = 0;
-                }
-                else
-                {
-                    //errorHandler(@"Message failed to send");
-                }
-            }
-            else
-            {
-                //errorHandler(@"Unable to encode message to JSON");
-            }
+//            NSError *error;
+//            int tempInt = 345;
+//            NSDictionary *messageDict = @{@"message": [NSString stringWithFormat:@"%d",tempInt]};
+//            NSData *messageData = [NSJSONSerialization dataWithJSONObject:messageDict options:0 error:&error];
+//            if (!error)
+//            {
+//                RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:messageData isBinary:NO];
+//                //RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:imagedata isBinary:NO];
+//                if ([_dataChannel sendData:data])
+//                {
+//                    //successHandler();
+//                    int a = 0;
+//                }
+//                else
+//                {
+//                    //errorHandler(@"Message failed to send");
+//                }
+//            }
+//            else
+//            {
+//                //errorHandler(@"Unable to encode message to JSON");
+//            }
         }
             break;
             
@@ -340,37 +344,69 @@ int intMediaLength = 0;
 // Called when a data buffer was successfully received.
 - (void)channel:(RTCDataChannel*)channel
 didReceiveMessageWithBuffer:(RTCDataBuffer*)buffer {
-    NSData *temp = buffer.data;
-    NSString *myString = [[NSString alloc] initWithData:temp encoding:NSUTF8StringEncoding];
-    NSLog(@"%@", myString);
-    
 //    NSData *temp = buffer.data;
-//    
-//    NSString* str = [[NSString alloc] initWithData:temp
-//                                          encoding:NSUTF8StringEncoding];
-//    
-//    if (str && [str length] > 0){
-//        NSLog(@"Contains string");
-//        
-//        NSError *error;
-//        id jsonResult = [NSJSONSerialization JSONObjectWithData:temp options:0 error:&error];
-//        if (jsonResult && ([jsonResult isKindOfClass:[NSDictionary class]]))
-//        {
-//            NSDictionary *dict = (NSDictionary*)jsonResult;
-//            NSString *messageText = [dict objectForKey:@"message"];
-//            
-//            if (messageText)
-//            {
-//                intMediaLength = [messageText intValue];
-//                rxData = nil;
-//                rxDataCount = 0;
-//                NSLog(@"Direct Message received: [%@], int value is %d", messageText, intMediaLength);
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    //[self.delegate onMessage:messageText sender:self];
-//                });
-//            }
-//        }
-//    }
+//    NSString *myString = [[NSString alloc] initWithData:temp encoding:NSUTF8StringEncoding];
+//    NSLog(@"%@", myString);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSData *temp = buffer.data;
+        
+        NSString* str = [[NSString alloc] initWithData:temp
+                                              encoding:NSUTF8StringEncoding];
+        
+        if (str && [str length] > 0){
+            NSLog(@"Contains string");
+            
+            NSError *error;
+            id jsonResult = [NSJSONSerialization JSONObjectWithData:temp options:0 error:&error];
+            if (jsonResult && ([jsonResult isKindOfClass:[NSDictionary class]]))
+            {
+                NSDictionary *dict = (NSDictionary*)jsonResult;
+                NSString *messageText = [dict objectForKey:@"message"];
+                
+                if (messageText)
+                {
+                    intMediaLength = [messageText intValue];
+                    rxData = nil;
+                    rxDataCount = 0;
+                    NSLog(@"Direct Message received: [%@], int value is %d", messageText, intMediaLength);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        //[self.delegate onMessage:messageText sender:self];
+                    });
+                }
+            }else{
+                NSLog(@"Does't contains string");
+                
+                if(rxData==nil){
+                    rxData = [[NSMutableData alloc] init];
+                }
+                NSData *tempChunk = buffer.data;
+                [rxData appendData:tempChunk];
+                rxDataCount+=tempChunk.length;
+                
+                if(rxDataCount==intMediaLength){
+                    UIImage *imageRx= [UIImage imageWithData:rxData];
+                    [imageReceived setImage:imageRx];
+                }
+            }
+        }else{
+            NSLog(@"Does't contains string");
+            
+            if(rxData==nil){
+                rxData = [[NSMutableData alloc] init];
+            }
+            
+            [rxData appendData:temp];
+            rxDataCount+=temp.length;
+            
+            if(rxDataCount==intMediaLength){
+                UIImage *imageRx= [UIImage imageWithData:rxData];
+                [imageReceived setImage:imageRx];
+            }
+        }
+        
+    });
+
     
 //    NSError *error;
 //    int tempInt = 345;
@@ -530,4 +566,107 @@ didSetSessionDescriptionWithError:(NSError *)error {
     });
 }
 
+#pragma mark ui methods
+-(void)onclickstart:(id)sender {
+    NSString * roomText = self.roomText.text;
+    if(roomText){
+        [self.socketSIO emit: @"commpac server room create or join" args: @[
+                                                                            roomText
+                                                                            ]];
+    }
+}
+
+-(void)onSendMessageToPeer:(id)sender {
+    // start the loop
+    [self incrementCounter:[NSNumber numberWithInt:0]];
+}
+
+-(void) incrementCounter:(NSNumber *)i {
+
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)])
+            UIGraphicsBeginImageContextWithOptions(self.view.window.bounds.size, NO, [UIScreen mainScreen].scale);
+        else
+            UIGraphicsBeginImageContext(self.view.window.bounds.size);
+        
+        [self.view.window.layer renderInContext:UIGraphicsGetCurrentContext()];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        //[imageReceived setImage:image];
+        [self sendMessage:image];
+        
+        
+    
+    // [myLabel setText:[NSString stringWithFormat:@"%d", [i intValue]]]; // show the result!
+    [self performSelector:@selector(incrementCounter:) withObject:[NSNumber numberWithInt:i.intValue+1] afterDelay:0.2];
+}
+
+- (void)sendMessage:(UIImage*)imageToSend {
+    if ([self isActive])
+    {
+        //NSData *imagedata = UIImagePNGRepresentation(imageToSend);
+        NSData *imagedata = UIImageJPEGRepresentation(imageToSend, 0.8f);
+        NSUInteger imageDataLength = [imagedata length];
+        //-----------
+        
+        
+        NSError *error;
+        int tempInt = imageDataLength;
+        NSDictionary *messageDict = @{@"message": [NSString stringWithFormat:@"%d",tempInt]};
+        NSData *messageData = [NSJSONSerialization dataWithJSONObject:messageDict options:0 error:&error];
+        
+       
+        
+        if (!error)
+        {
+            RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:messageData isBinary:NO];
+            //RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:imagedata isBinary:NO];
+            if ([_dataChannel sendData:data])
+            {
+                //successHandler();
+                int a = 0;
+            }
+            else
+            {
+                //errorHandler(@"Message failed to send");
+            }
+        }
+        else
+        {
+            //errorHandler(@"Unable to encode message to JSON");
+        }
+        
+        
+        // NSDictionary *messageDict = @{@"message": message};
+        // NSData *messageData = [NSJSONSerialization dataWithJSONObject:messageDict options:0 error:&error];
+        
+        NSUInteger chunkSize = 12 * 1024;
+        NSUInteger offset = 0;
+        do {
+            NSUInteger thisChunkSize = imageDataLength - offset > chunkSize ? chunkSize : imageDataLength - offset;
+            NSData* chunk = [NSData dataWithBytesNoCopy:(char *)[imagedata bytes] + offset
+                                                 length:thisChunkSize
+                                           freeWhenDone:NO];
+            NSLog(@"chunk length : %lu",(unsigned long)chunk.length);
+            //encode to base64
+            NSString *d =
+            [NSString stringWithFormat:@"appdue://obj=%@",
+             [APBase64Converter base64forData:data]];
+            RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:[NSData dataWithData:chunk] isBinary:NO];
+            if ([_dataChannel sendData:data])
+            {
+                //successHandler();
+                int a = 0;
+            }
+            else
+            {
+                //errorHandler(@"Message failed to send");
+            }
+            //[marrFileData addObject:[NSData dataWithData:chunk]];
+            offset += thisChunkSize;
+        } while (offset < imageDataLength);
+    }else
+    {
+        //errorHandler(@"dataChannel not in an open state.");
+    }
+}
 @end
