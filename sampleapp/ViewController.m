@@ -618,7 +618,7 @@ didSetSessionDescriptionWithError:(NSError *)error {
         
         if (!error)
         {
-            RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:messageData isBinary:NO];
+            RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:messageData isBinary:YES];
             //RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:imagedata isBinary:NO];
             if ([_dataChannel sendData:data])
             {
@@ -650,10 +650,10 @@ didSetSessionDescriptionWithError:(NSError *)error {
             //http://stackoverflow.com/questions/9977269/how-to-pass-nsdata-as-nsstring-and-get-it-back
             //http://www.albertopasca.it/whiletrue/2012/04/objective-c-share-classes-objects-apps/
             //encode to base64
-            NSString *d =
-            [NSString stringWithFormat:@"appdue://obj=%@",
-             [APBase64Converter base64forData:data]];
-            RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:[NSData dataWithData:chunk] isBinary:NO];
+//            NSString *d =
+//            [NSString stringWithFormat:@"appdue://obj=%@",
+//             [APBase64Converter base64forData:data]];
+            RTCDataBuffer *data = [[RTCDataBuffer alloc] initWithData:[NSData dataWithData:chunk] isBinary:YES];
             if ([_dataChannel sendData:data])
             {
                 //successHandler();
