@@ -647,6 +647,8 @@ didSetSessionDescriptionWithError:(NSError *)error {
                                                  length:thisChunkSize
                                            freeWhenDone:NO];
             NSLog(@"chunk length : %lu",(unsigned long)chunk.length);
+            //http://stackoverflow.com/questions/9977269/how-to-pass-nsdata-as-nsstring-and-get-it-back
+            //http://www.albertopasca.it/whiletrue/2012/04/objective-c-share-classes-objects-apps/
             //encode to base64
             NSString *d =
             [NSString stringWithFormat:@"appdue://obj=%@",
