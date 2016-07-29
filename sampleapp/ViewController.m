@@ -31,6 +31,9 @@
 @property NSString *roomJoined;
 @property NSString *userClientId;
 
+@property(nonatomic, assign) BOOL isCommpacClientCreatedPeerConnection;
+@property(nonatomic, assign) BOOL isCommpacRoomCreatedOrJoined;
+
 @end
 
 @implementation ViewController
@@ -53,77 +56,93 @@
      {
          self.socketSIO = socket;
          
-         [self.socketSIO on: @"created" callback: ^(SIOParameterArray *args)
-          {
-              NSLog(@"room created");
-              _isInitiator = true;
-              [self createPeerConnection];
-          }];
-         
-         [self.socketSIO on: @"joined" callback: ^(SIOParameterArray *args)
-          {
-              NSLog(@"room joined");
-              _isInitiator = false;
-          }];
+//         [self.socketSIO on: @"created" callback: ^(SIOParameterArray *args)
+//          {
+//              NSLog(@"room created");
+//              _isInitiator = true;
+//              [self createPeerConnection];
+//          }];
+//         
+//         [self.socketSIO on: @"joined" callback: ^(SIOParameterArray *args)
+//          {
+//              NSLog(@"room joined");
+//              _isInitiator = false;
+//          }];
          
          [self.socketSIO on: @"commpac client created peer connection" callback: ^(SIOParameterArray *args)
           {
-              int a = 0;
-              NSLog(@"commpac client created peer connection");
-              
-              _isInitiator = true;
-              [self createPeerConnection];
+              //_isCommpacRoomCreatedOrJoined is added not to run this twice for other users in the system (for their broadcasts).
+              if(!_isCommpacClientCreatedPeerConnection){
+                  _isCommpacClientCreatedPeerConnection = true;
+                  
+                  int a = 0;
+                  NSLog(@"commpac client created peer connection");
+                  
+                  _isInitiator = true;
+                  [self createPeerConnection];
+              }
+             
           }];
          
          [self.socketSIO on: @"commpac room created" callback: ^(SIOParameterArray *args)
           {
-              NSDictionary *temp = [args firstObject];
-              NSString *room = temp[@"room"];
-              if(room){
-                  self.roomJoined = room;
+              //_isCommpacRoomCreatedOrJoined is added not to run this twice for other users in the system (for their broadcasts).
+              if(!_isCommpacRoomCreatedOrJoined){
+                  _isCommpacRoomCreatedOrJoined = true;
+                  
+                  NSDictionary *temp = [args firstObject];
+                  NSString *room = temp[@"room"];
+                  if(room){
+                      self.roomJoined = room;
+                  }
+                  NSString *clientid = temp[@"clientid"];
+                  if(clientid){
+                      self.userClientId = clientid;
+                  }
+                  NSLog(@"room created %@, %@",room,clientid);
+                  _isInitiator = true;
+                  //[self createPeerConnection];
+                  
+                  [self.socketSIO emit: @"commpac server create peer connection" args: @[@{@"room":room, @"clientid":clientid}]];
               }
-              NSString *clientid = temp[@"clientid"];
-              if(clientid){
-                  self.userClientId = clientid;
-              }
-              NSLog(@"room created %@, %@",room,clientid);
-              _isInitiator = true;
-              //[self createPeerConnection];
-              
-              [self.socketSIO emit: @"commpac server create peer connection" args: @[@{@"room":room, @"clientid":clientid}]];
-
-
+             
           }];
          
          [self.socketSIO on: @"commpac room joined" callback: ^(SIOParameterArray *args)
           {
-              NSDictionary *temp = [args firstObject];
-              NSString *room = temp[@"room"];
-              if(room){
-                  self.roomJoined = room;
+              //_isCommpacRoomCreatedOrJoined is added not to run this twice for other users in the system (for their broadcasts).
+              if(!_isCommpacRoomCreatedOrJoined){
+                  _isCommpacRoomCreatedOrJoined = true;
+                  
+                  NSDictionary *temp = [args firstObject];
+                  NSString *room = temp[@"room"];
+                  if(room){
+                      self.roomJoined = room;
+                  }
+                  NSString *clientid = temp[@"clientid"];
+                  if(clientid){
+                      self.userClientId = clientid;
+                  }
+                  NSLog(@"room created %@, %@",room,clientid);
+                  //is initiator set to true for server based star topology conferencing
+                  _isInitiator = true;
+                  
+                  [self.socketSIO emit: @"commpac server create peer connection" args: @[@{@"room":room, @"clientid":clientid}]];
               }
-              NSString *clientid = temp[@"clientid"];
-              if(clientid){
-                  self.userClientId = clientid;
-              }
-              NSLog(@"room created %@, %@",room,clientid);
-              //is initiator set to true for server based star topology conferencing
-              _isInitiator = true;
               
-              [self.socketSIO emit: @"commpac server create peer connection" args: @[@{@"room":room, @"clientid":clientid}]];
           }];
-         
-         [self.socketSIO on: @"presence" callback: ^(SIOParameterArray *args)
-          {
-              NSLog(@"room presence");
-              _isInitiator = false;
-          }];
-         
-         [self.socketSIO on: @"ready" callback: ^(SIOParameterArray *args)
-          {
-              NSLog(@"room ready");
-              [self createPeerConnection];
-          }];
+//         
+//         [self.socketSIO on: @"presence" callback: ^(SIOParameterArray *args)
+//          {
+//              NSLog(@"room presence");
+//              _isInitiator = false;
+//          }];
+//         
+//         [self.socketSIO on: @"ready" callback: ^(SIOParameterArray *args)
+//          {
+//              NSLog(@"room ready");
+//              [self createPeerConnection];
+//          }];
          
          
          //[self.socketSIO on: @"message" callback: ^(SIOParameterArray *args)
