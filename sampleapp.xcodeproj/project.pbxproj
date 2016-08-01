@@ -371,6 +371,7 @@
 			baseConfigurationReference = 425C04A602372A051791DC3F /* Pods-sampleapp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = sampleapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -389,6 +390,7 @@
 			baseConfigurationReference = C57613D7FECCC6E15B91AD32 /* Pods-sampleapp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = sampleapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

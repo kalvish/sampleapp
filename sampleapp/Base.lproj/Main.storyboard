@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="test.PNG" translatesAutoresizingMaskIntoConstraints="NO" id="59I-8b-632" userLabel="Image Received">
-                                <rect key="frame" x="20" y="86" width="537" height="462"/>
+                                <rect key="frame" x="0.0" y="86" width="768" height="800"/>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZhD-LY-AC3" userLabel="Room Text">
                                 <rect key="frame" x="11" y="28" width="97" height="30"/>
