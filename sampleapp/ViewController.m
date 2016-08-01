@@ -607,7 +607,7 @@ didSetSessionDescriptionWithError:(NSError *)error {
     if ([self isActive])
     {
         //NSData *imagedata = UIImagePNGRepresentation(imageToSend);
-        NSData *imagedata = UIImageJPEGRepresentation(imageToSend, 0.6f);
+        NSData *imagedata = UIImageJPEGRepresentation(imageToSend, 0.5f);
         NSUInteger imageDataLength = [imagedata length];
         //-----------
         
