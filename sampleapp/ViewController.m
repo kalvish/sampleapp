@@ -483,7 +483,9 @@ didReceiveMessageWithBuffer:(RTCDataBuffer*)buffer {
     NSDictionary *tempString = [tempCandidate getJSONDataCandidate];
     //[self.socketSIO emit: @"message" args: @[tempString]];
     
-    [self.socketSIO emit: @"commpac server message" args: @[@{@"room":self.roomJoined , @"clientid":self.userClientId , @"content": tempString , @"from": @"client"}]];
+    if(self.roomJoined){
+        [self.socketSIO emit: @"commpac server message" args: @[@{@"room":self.roomJoined , @"clientid":self.userClientId , @"content": tempString , @"from": @"client"}]];
+    }
 }
 
 // New data channel has been opened.
@@ -533,8 +535,9 @@ didCreateSessionDescription:(RTCSessionDescription *)sdp
 
         //[self.socketSIO emit: @"message" args: @[data]];
         //var messageToSend = {room:myRoom,clientid:myCliendId,content:message,from:'client'};
-        [self.socketSIO emit: @"commpac server message" args: @[@{@"room":self.roomJoined , @"clientid":self.userClientId , @"content": data , @"from": @"client"}]];
-
+        if(self.roomJoined && self.userClientId){
+            [self.socketSIO emit: @"commpac server message" args: @[@{@"room":self.roomJoined , @"clientid":self.userClientId , @"content": data , @"from": @"client"}]];
+        }
         
     });
 }
