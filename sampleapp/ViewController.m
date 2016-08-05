@@ -43,6 +43,7 @@
 @implementation ViewController
 
 @synthesize imageReceived;
+@synthesize isCommpacRoomCreatedOrJoined = _isCommpacRoomCreatedOrJoined;
 
 @synthesize rxData;
 int rxDataCount = 0;
@@ -56,13 +57,19 @@ int intMediaLength = 0;
 @synthesize roomJoined;
 @synthesize userClientId;
 
+- (void)clearPreviousConnections {
+    _isCommpacRoomCreatedOrJoined = false;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     _factory = [[RTCPeerConnectionFactory alloc] init];
     
     // Do any additional setup after loading the view, typically from a nib.
-    [SIOSocket socketWithHost: @"http://54.186.253.62:8080" response: ^(SIOSocket *socket)
+    //http://54.213.123.104:8080
+    //http://54.186.253.62:8080
+    [SIOSocket socketWithHost: @"http://54.213.123.104:8080" response: ^(SIOSocket *socket)
      {
          self.socketSIO = socket;
          
